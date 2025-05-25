@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series de Fourier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1em 2em;
+      text-align: center;
+    }
+    nav {
+      background-color: #005599;
+      padding: 0.5em;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1em;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 2em;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 2em;
+    }
+    h2 {
+      color: #003366;
+    }
+    h3 {
+      color: #005599;
+    }
+    .example {
+      background-color: #eef;
+      padding: 1em;
+      border-radius: 8px;
+      margin-top: 1em;
+      cursor: pointer;
+    }
+    .example-content {
+      display: none;
+      margin-top: 1em;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #003366;
+      color: white;
+    }
+  </style>
+
+  <!-- MathJax para ecuaciones -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Series de Fourier</h1>
+  <p>Representación de funciones periódicas mediante senos y cosenos</p>
+</header>
+
+<nav>
+  <a href="#introduccion">Introducción</a>
+  <a href="#teoria">Teoría Preliminar</a>
+  <a href="#series">Series de Fourier</a>
+  <a href="#cosenos-senos">Series en Cosenos, Senos y Medio Intervalo</a>
+</nav>
+
+<main>
+  <section id="introduccion">
+    <h2>5 Introducción a las Series de Fourier</h2>
+    <p>Las series de Fourier permiten representar funciones periódicas como la suma infinita de funciones seno y coseno. Son fundamentales en análisis de señales, procesamiento de imágenes, y solución de ecuaciones diferenciales.</p>
+  </section>
+
+  <section id="teoria">
+    <h2>5.1 Teoría Preliminar</h2>
+    <p>Para desarrollar series de Fourier, se requiere entender funciones periódicas, ortogonalidad de funciones seno y coseno, e integración definida en un intervalo.</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: Ortogonalidad
+      <div class="example-content">
+        <p>Se cumple que:</p>
+        <p>\[\int_{-\pi}^{\pi} \sin(nx)\cos(mx) \, dx = 0\]</p>
+        <p>\[\int_{-\pi}^{\pi} \sin(nx)\sin(mx) \, dx = 0 \quad \text{si } n \ne m\]</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="series">
+    <h2>5.2 Series de Fourier</h2>
+    <p>Una función periódica \( f(x) \) de período \( 2\pi \) puede expresarse como:</p>
+    <p>\[
+f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos(nx) + b_n \sin(nx) \right)
+\]</p>
+    <p>Con los coeficientes:</p>
+    <p>\[
+a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\, dx
+\quad
+a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(nx)\, dx
+\quad
+b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin(nx)\, dx
+\]</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: Onda Cuadrada
+      <div class="example-content">
+        <p>\[
+f(x) = \frac{4}{\pi} \left( \sin(x) + \frac{1}{3}\sin(3x) + \frac{1}{5}\sin(5x) + \cdots \right)
+\]</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cosenos-senos">
+    <h2>5.3 Series en Cosenos, Senos y de Medio Intervalo</h2>
+
+    <h3>Serie de Cosenos (extensión par)</h3>
+    <p>\[
+f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\left( \frac{n\pi x}{L} \right)
+\quad
+a_n = \frac{2}{L} \int_0^L f(x)\cos\left( \frac{n\pi x}{L} \right) dx
+\]</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: \( f(x) = x \) en \( [0, \pi] \)
+      <div class="example-content">
+        <p>\[
+f(x) \approx \frac{\pi}{2} - \frac{4}{\pi} \left( \frac{\cos(x)}{1^2} + \frac{\cos(3x)}{3^2} + \cdots \right)
+\]</p>
+      </div>
+    </div>
+
+    <h3>Serie de Senos (extensión impar)</h3>
+    <p>\[
+f(x) = \sum_{n=1}^{\infty} b_n \sin\left( \frac{n\pi x}{L} \right)
+\quad
+b_n = \frac{2}{L} \int_0^L f(x)\sin\left( \frac{n\pi x}{L} \right) dx
+\]</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: \( f(x) = x \) en \( [0, \pi] \)
+      <div class="example-content">
+        <p>\[
+f(x) = 2 \sum_{n=1}^{\infty} (-1)^{n+1} \frac{\sin(nx)}{n}
+\]</p>
+      </div>
+    </div>
+
+    <h3>Series de Medio Intervalo</h3>
+    <p>Se usan para representar funciones definidas en intervalos como \( [0, L] \), usando solo senos o cosenos según condiciones de frontera.</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: \( f(x) = x \) en \( [0, L] \), Serie de Senos
+      <div class="example-content">
+        <p>\[
+f(x) = \frac{2L}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin\left( \frac{n\pi x}{L} \right)
+\]</p>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 - Hecha por David Castillo y Miguel Ramos
+</footer>
+
+<script>
+  function toggleExample(element) {
+    const content = element.querySelector(".example-content");
+    content.style.display = content.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>
