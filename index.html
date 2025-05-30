@@ -84,7 +84,9 @@
 <main>
   <section id="introduccion">
     <h2>5 Introducción a las Series de Fourier</h2>
-    <p>Las series de Fourier permiten representar funciones periódicas como la suma infinita de funciones seno y coseno. Son fundamentales en análisis de señales, procesamiento de imágenes, y solución de ecuaciones diferenciales.</p>
+    <p>Las series de Fourier permiten representar funciones periódicas como una suma infinita de funciones seno y coseno. Esta técnica transforma funciones complejas en combinaciones simples de ondas, lo que facilita su análisis y manipulación.</p>
+    <p>Su utilidad es muy amplia: se aplican en física, ingeniería eléctrica, procesamiento de señales, análisis de imágenes, acústica, compresión de audio y video, y solución de ecuaciones diferenciales parciales.</p>
+    <p>Aunque las series de Fourier se aplican a funciones periódicas, también pueden extenderse a funciones no periódicas mediante la <strong>transformada de Fourier</strong>, que permite analizar funciones definidas en todo el eje real.</p>
   </section>
 
   <section id="teoria">
@@ -124,6 +126,36 @@ f(x) = \frac{4}{\pi} \left( \sin(x) + \frac{1}{3}\sin(3x) + \frac{1}{5}\sin(5x) 
 \]</p>
       </div>
     </div>
+
+    <h3>Funciones no periódicas y la Transformada de Fourier</h3>
+    <p>Las series de Fourier están diseñadas para funciones periódicas, pero muchas funciones en el mundo real no lo son. Para funciones no periódicas (definidas en todo \( \mathbb{R} \)), se utiliza una herramienta relacionada: la <strong>Transformada de Fourier</strong>.</p>
+    <p>La transformada de Fourier convierte una función en el dominio del tiempo o espacio en una función en el dominio de la frecuencia. Es una extensión continua de las series de Fourier.</p>
+    <p>La definición para una función \( f(x) \) continua e integrable es:</p>
+    <p>\[
+F(\omega) = \int_{-\infty}^{\infty} f(x) e^{-i \omega x} \, dx
+\]</p>
+    <p>Y la función original puede recuperarse mediante la transformada inversa:</p>
+    <p>\[
+f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega) e^{i \omega x} \, d\omega
+\]</p>
+    <p>Esta herramienta es esencial para analizar señales de audio, imágenes, vibraciones, y fenómenos físicos donde las funciones no son necesariamente periódicas.</p>
+
+    <div class="example" onclick="toggleExample(this)">
+      Ejemplo: Pulso Rectangular
+      <div class="example-content">
+        <p>Un pulso rectangular de duración finita tiene como transformada una función tipo <em>sinc</em> (cardinal seno):</p>
+        <p>\[
+\text{Si } f(x) = \begin{cases}
+1 & |x| < a \\
+0 & \text{en otro caso}
+\end{cases}
+\quad \Rightarrow \quad
+F(\omega) = 2a \cdot \text{sinc}(a\omega)
+\]</p>
+        <p>Esto muestra cómo un pulso breve contiene un amplio rango de frecuencias.</p>
+      </div>
+    </div>
+
   </section>
 
   <section id="cosenos-senos">
@@ -183,9 +215,12 @@ f(x) = \frac{2L}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin\left( \frac{
 <script>
   function toggleExample(element) {
     const content = element.querySelector(".example-content");
-    content.style.display = content.style.display === "block" ? "none" : "block";
+    const isVisible = content.style.display === "block";
+    content.style.display = isVisible ? "none" : "block";
+    element.setAttribute("aria-expanded", !isVisible);
   }
 </script>
 
 </body>
 </html>
+
